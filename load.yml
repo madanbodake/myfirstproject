@@ -1,0 +1,13 @@
+---
+- name: Check server load using top command
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Get server load using top command
+      command: "top -n 1 -b"  # -n 1 for one iteration and -b for batch mode
+      become: yes
+      register: top_output
+
+    - name: Display the top load result
+      debug:
+        msg: "Top load for {{ inventory_hostname }}: {{ top_output.stdout }}"
