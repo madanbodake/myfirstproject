@@ -1,0 +1,9 @@
+---
+- name: Check the OS version of the server
+  hosts: all
+  gather_facts: yes  # This automatically collects facts about the system
+
+  tasks:
+    - name: Display the OS version
+      debug:
+        msg: "The OS version is {{ ansible_facts['distribution'] }} {{ ansible_facts['distribution_version'] }}"
