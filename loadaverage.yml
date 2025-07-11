@@ -1,0 +1,29 @@
+---
+- name: Check Load Average on RHEL 8 Servers
+  hosts: all
+  become: true
+  gather_facts: true
+
+  vars:
+    rhel8_identifier: "Red Hat Enterprise Linux 8"
+
+  tasks:
+    - name: Check if OS is RHEL 8
+      ansible.builtin.set_fact:
+        is_rhel8: "{{ ansible_distribution == 'RedHat' and ansible_distribution_major_version == '8' }}"
+
+    - name: Get Load Average if RHEL 8
+      ansible.builtin.shell: cat /proc/loadavg
+      register: loadavg_output
+      when: is_rhel8
+
+    - name: Display Load Average if RHEL 8
+      ansible.builtin.debug:
+        msg: "Load Average on {{ inventory_hostname }}: {{ loadavg_output.stdout }}"
+      when: is_rhel8
+
+    - name: Skip non-RHEL 8 hosts
+      ansible.builtin.debug:
+        msg: "Skipping {{ inventory_hostname }} - Not a RHEL 8 server."
+      when: not is_rhel8
+
