@@ -1,0 +1,23 @@
+---
+- name: Restart Nginx if service stopped
+  hosts: all
+  sources:
+    - ansible.eda.webhook:
+        name: nginx_watchdog_webhook
+        port: 5001
+
+  rules:
+    - name: Restart nginx if message matches
+      condition: event.payload.message == "nginx stopped"
+      action:
+        run_job_template:
+          name: restart_nginx_eda
+          organization: "myorg1"
+          job_args:
+            extra_vars:
+              from_eda: true
+
+    - name: Log all events
+      condition: true
+      action:
+        debug:
