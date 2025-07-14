@@ -11,5 +11,5 @@
       condition: event.payload.message == "nginx stopped"
       action:
         run_job_template:
-          name: restart_nginx
+          name: restart_nginx_eda
           organization: "myorg1"
