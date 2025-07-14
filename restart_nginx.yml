@@ -1,6 +1,7 @@
 ---
 - name: Restart nginx
   hosts: 192.168.122.76
+  become: true
   tasks:
     - name: Restart nginx service
       ansible.builtin.service:
