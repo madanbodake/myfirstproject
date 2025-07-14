@@ -1,6 +1,6 @@
 ---
 - name: Restart nginx
-  hosts: 10.8.51.216
+  hosts: 192.168.122.76
   become: true
   tasks:
     - name: Restart nginx service
