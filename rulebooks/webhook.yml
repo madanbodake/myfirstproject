@@ -1,6 +1,6 @@
 ---
 - name: Restart Nginx if service stopped
-  hosts: all
+  hosts: 192.168.122.76
   sources:
     - ansible.eda.webhook:
         name: nginx_watchdog_webhook
