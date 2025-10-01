@@ -1,0 +1,13 @@
+- name: Test rulebook
+  hosts: localhost
+  sources:
+    - ansible.eda.webhook:
+        host: 0.0.0.0
+        port: 8000
+        
+  rules:
+    - name: Always trigger
+      condition: true
+      action:
+        debug:
+          msg: "Event received and processed"
